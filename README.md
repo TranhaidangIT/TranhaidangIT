@@ -62,11 +62,10 @@ I am currently a second-year software engineering student at Can Tho University,
   <img src="https://github-readme-stats.vercel.app/api?username=TranhaidangIT&count_private=true&show_icons=true&theme=radical" alt="GitHub Stats" />
 </div>
 
-## 🌐 Most Used Languages
+## 📈 Weekly Development Breakdown
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=TranhaidangIT&layout=compact&theme=radical" alt="Top Languages" />
-</div>
+<!--START_SECTION:waka-->
+<!--END_SECTION:waka-->
 
 ## 🤝 Let's Connect
 
