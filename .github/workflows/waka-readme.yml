@@ -1,22 +1,69 @@
-name: Waka Readme
+name: WakaTime Stats Update
 
 on:
-  schedule:
-    # Runs at 12am UTC every day
-    - cron: "0 0 * * *"
   workflow_dispatch:
+  schedule:
+    # Chạy mỗi 6 giờ thay vì 2 giờ để tránh rate limiting
+    - cron: "0 */6 * * *"
 
 jobs:
   update-readme:
-    name: Update this repo's README
+    name: Update WakaTime Stats in README
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
     steps:
-      - uses: actions/checkout@v3
-      - uses: athul/waka-readme@master
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: false
+      
+      - name: Setup Git Config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      
+      - name: Update WakaTime Stats
+        uses: anmol098/waka-readme-stats@master
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          SHOW_TITLE: true
-          BLOCKS: ⣀⣄⣤⣦⣶⣷⣿
-          TIME_RANGE: last_7_days
-          SHOW_TIME: true
-          SHOW_MASKED_TIME: false
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          
+          # Hiển thị thông tin hệ thống và tools
+          SHOW_OS: "True"
+          SHOW_EDITORS: "True"
+          SHOW_TIMEZONE: "True"
+          
+          # Hiển thị thông tin dự án và ngôn ngữ
+          SHOW_PROJECTS: "True"
+          SHOW_LANGUAGE: "True"
+          SHOW_LANGUAGE_PER_REPO: "True"
+          
+          # Hiển thị biểu đồ và thống kê
+          SHOW_LOC_CHART: "True"
+          SHOW_COMMIT: "True"
+          SHOW_PROFILE_VIEWS: "True"
+          
+          # Hiển thị thời gian cập nhật
+          SHOW_UPDATED_DATE: "True"
+          
+          # Tắt các thông tin không cần thiết
+          SHOW_LINES_OF_CODE: "False"
+          SHOW_DAYS_OF_WEEK: "False"
+          SHOW_SHORT_INFO: "False"
+          SHOW_TOTAL_CODE_TIME: "False"
+          SHOW_TIMELINE: "False"
+          SHOW_TITLE: "False"
+          
+          # Cấu hình commit
+          COMMIT_MESSAGE: "📊 Updated WakaTime Stats"
+          SECTION_NAME: "waka"
+          COMMIT_BY_ME: "True"
+          
+          # Cấu hình locale (optional)
+          LOCALE: "en"
